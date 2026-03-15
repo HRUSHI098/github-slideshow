@@ -1,0 +1,17 @@
+<footer class="footer">
+  <div class="footer-inner">
+    <p class="footer-text">© {{ 'now' | date: '%Y' }} {{ site.author.name }}. Built with Jekyll.</p>
+    <ul class="footer-links">
+      {% if site.author.github %}
+      <li><a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener">GitHub</a></li>
+      {% endif %}
+      {% if site.author.twitter %}
+      <li><a href="https://twitter.com/{{ site.author.twitter }}" target="_blank" rel="noopener">Twitter</a></li>
+      {% endif %}
+      {% if site.author.linkedin %}
+      <li><a href="https://linkedin.com/in/{{ site.author.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>
+      {% endif %}
+      <li><a href="{{ '/blog' | relative_url }}">Blog</a></li>
+    </ul>
+  </div>
+</footer>

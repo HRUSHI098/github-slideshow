@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include nav.html %}
+
+  <!-- Reading progress bar -->
+  <div id="reading-progress" style="position:fixed;top:var(--nav-height);left:0;height:2px;background:var(--accent);z-index:200;width:0;transition:width 0.1s linear;"></div>
+
+  <main class="post-layout">
+    <div class="container">
+      <article>
+        <header class="post-header">
+          <a href="{{ '/blog' | relative_url }}" class="post-back">← Back to blog</a>
+          <div class="post-meta">
+            <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+            {% if page.reading_time %}
+            <span class="post-meta-sep">·</span>
+            <span>{{ page.reading_time }} min read</span>
+            {% endif %}
+            {% if page.tags and page.tags.size > 0 %}
+            <span class="post-meta-sep">·</span>
+            {% for tag in page.tags limit:2 %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+            {% endif %}
+          </div>
+          <h1 class="post-title">{{ page.title }}</h1>
+        </header>
+
+        <div class="post-content">
+          {{ content }}
+        </div>
+
+        {% if page.tags and page.tags.size > 0 %}
+        <div class="post-tags">
+          {% for tag in page.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </article>
+
+      <!-- Next/Prev navigation -->
+      <nav style="display:flex;justify-content:space-between;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);gap:1rem;">
+        {% if page.previous %}
+        <a href="{{ page.previous.url | relative_url }}" style="font-size:0.875rem;color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;max-width:45%;">
+          ← <span>{{ page.previous.title }}</span>
+        </a>
+        {% else %}
+        <span></span>
+        {% endif %}
+        {% if page.next %}
+        <a href="{{ page.next.url | relative_url }}" style="font-size:0.875rem;color:var(--text-muted);display:flex;align-items:center;gap:0.4rem;text-align:right;max-width:45%;">
+          <span>{{ page.next.title }}</span> →
+        </a>
+        {% endif %}
+      </nav>
+    </div>
+  </main>
+
+  {% include footer.html %}
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>

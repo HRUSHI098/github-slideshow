@@ -1,0 +1,46 @@
+---
+layout: default
+title: Blog
+permalink: /blog
+---
+
+<div class="page-header fade-in">
+  <h1 class="page-header-title">Writing</h1>
+  <p class="page-header-desc">Thoughts on software engineering, design, and building things on the internet.</p>
+</div>
+
+<!-- Tag filters -->
+<div class="blog-filter" id="blog-filter">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="engineering">Engineering</button>
+  <button class="filter-btn" data-filter="design">Design</button>
+  <button class="filter-btn" data-filter="career">Career</button>
+  <button class="filter-btn" data-filter="open-source">Open Source</button>
+</div>
+
+<div class="blog-grid" id="blog-grid">
+  {% for post in site.posts %}
+  <div class="blog-card" data-tags="{{ post.tags | join: ',' | downcase }}">
+    <div class="blog-card-meta">
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+      {% if post.reading_time %}
+      <span>· {{ post.reading_time }} min read</span>
+      {% endif %}
+    </div>
+    <a href="{{ post.url | relative_url }}">
+      <h2 class="blog-card-title">{{ post.title }}</h2>
+    </a>
+    {% if post.excerpt %}
+    <p class="blog-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 28 }}</p>
+    {% endif %}
+    <div class="blog-card-footer">
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+        {% for tag in post.tags limit:3 %}
+        <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
